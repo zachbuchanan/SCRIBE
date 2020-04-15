@@ -1,0 +1,21 @@
+<div class="container border">
+    <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+          <div>
+            <label for="customer_name">Company Name</label>
+            <input id="customer_name" type="text" formControlName="customer_name">
+          </div>
+        
+          <div>
+            <label for="customer_address">Company Address</label>
+            <input id="address" type="text" formControlName="customer_address">
+          </div>
+
+          <button class="button" type="submit">Enter</button>
+    </form>
+</div>
+
+<app-checkboxes></app-checkboxes>
+<app-jobs [jobList]="jobs"></app-jobs>
+
+<button class="btn btn-secondary btn-lg btn-block" (click)="generateDocument()">Generate Document</button>
+

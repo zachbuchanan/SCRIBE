@@ -1,0 +1,39 @@
+﻿<Properties StartupConfiguration="{44EBDDE1-3F2C-4AE8-80C5-4FD3D3A42173}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="API/Controllers/InvoiceController.cs">
+    <Files>
+      <File FileName="API/Controllers/InvoiceController.cs" Line="37" Column="1" />
+      <File FileName="Core/Model/JobEditModel.cs" Line="8" Column="9" />
+      <File FileName="Core/Model/Job.cs" Line="10" Column="39" />
+      <File FileName="API/Startup.cs" Line="40" Column="16" />
+      <File FileName="Core/Model/CompanyInfo.cs" Line="10" Column="1" />
+      <File FileName="Core/Model/Section.cs" Line="7" Column="26" />
+      <File FileName="Core/Model/SectionEditModel.cs" Line="8" Column="23" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Scribe" expanded="True">
+            <Node name="API" expanded="True">
+              <Node name="Controllers" expanded="True">
+                <Node name="InvoiceController.cs" selected="True" />
+              </Node>
+            </Node>
+            <Node name="Core" expanded="True">
+              <Node name="Model" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.API PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

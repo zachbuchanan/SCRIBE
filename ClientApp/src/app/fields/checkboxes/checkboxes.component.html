@@ -1,0 +1,12 @@
+<div class="container border">
+    <p class="text-center">Document Sections</p>
+    <input type="checkbox" [(ngModel)]="masterSelect" (change)="checkUncheckAll()"><b> Check/Uncheck All</b><br><br>
+    <ul class="list-group">
+        <li class="list-group-item" *ngFor="let item of checkList">
+            <input type="checkbox" [(ngModel)]="item.isSelected" name="list_name" value="{{item.id}}"/>
+            {{item.value}}
+        </li>
+    </ul>   
+    <!-- <button (click)="test()">Test</button> -->
+
+</div>
