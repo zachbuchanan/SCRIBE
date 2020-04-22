@@ -32,6 +32,11 @@ namespace API.Controllers
                 }
             }            API.Generator.Generator.Stitch(file_list, "Contract");            return "#789";        }
 
+        [HttpPost("AddFileOutputPath")]
+        public string AddFileOutputPath([FromBody] FilePath fileOutputPath)        {
+            //add file input path to generator
+            return "#101112";        }
+
         [HttpGet("GetFileNames")]
         public List<string> SendFileNamesToFrontEnd()
         {

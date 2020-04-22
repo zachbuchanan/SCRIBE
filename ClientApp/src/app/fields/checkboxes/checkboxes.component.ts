@@ -3,6 +3,9 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from "rxjs/operators";
+//import { checkServerIdentity } from 'tls';
+import { ThrowStmt } from '@angular/compiler';
+
 @Component({
   selector: 'app-checkboxes',
   templateUrl: './checkboxes.component.html',
@@ -12,12 +15,13 @@ export class CheckboxesComponent implements OnInit {
   baseUrl: string = environment.apiRootUrl;
   masterSelect: Boolean;
   checkList: any;
-  fileNames: Observable<string[]>;
+  fileNames$: any;
+  testdata: string[];
+  
 
 
 
   constructor(private http: HttpClient) { 
-    this.masterSelect = false;
     this.checkList = [
       {id:1,value:'Section1',isSelected:false},
       {id:2,value:'Section2',isSelected:false},
@@ -27,20 +31,46 @@ export class CheckboxesComponent implements OnInit {
       {id:6,value:'Section6',isSelected:false},
       {id:7,value:'Section7',isSelected:false},
     ]
+
+    this.fileNames$ = this.http.get<any>(this.baseUrl + "Invoice/GetFileNames").subscribe(function (data) {
+
+      this.testdata = data;
+      // for (let i = 0; i < this.testdata.length; i++) {
+      //   //console.log(this.testdata[i])
+      //   this.checkList[i].value = this.testdata[i];
+        
+      // }
+      
+    }, function (error) {
+      this.testdata = error;
+    });
+
+
+    
+    this.masterSelect = false;
+    // this.checkList = [
+    //   {id:1,value:'Section1',isSelected:false},
+    //   {id:2,value:'Section2',isSelected:false},
+    //   {id:3,value:'Section3',isSelected:false},
+    //   {id:4,value:'Section4',isSelected:false},
+    //   {id:5,value:'Section5',isSelected:false},
+    //   {id:6,value:'Section6',isSelected:false},
+    //   {id:7,value:'Section7',isSelected:false},
+    // ]
   }
 
   ngOnInit(): void {
-    // this.http.get(this.baseUrl + "Invoice/GetFileNames").subscribe(function (data) {
-    //   this.data = data;
+    // this.fileNames$ = this.http.get<any>(this.baseUrl + "Invoice/GetFileNames").subscribe(function (data) {
+
+    //   this.testdata = data;
+      
     // }, function (error) {
-    //   this.data = error;
+    //   this.testdata = error;
     // });
-    // this.fileNames = this.http.get<string[]>(this.baseUrl + "Invoice/GetFileNames").subscribe(function (data) {
-    //     this.data = data;
-    //   }, function (error) {
-    //     this.data = error;
-    //   });
-    // console.log(this.fileNames);
+    
+    // console.log("here");
+    // console.log(this.testdata);
+    
     
   }
 

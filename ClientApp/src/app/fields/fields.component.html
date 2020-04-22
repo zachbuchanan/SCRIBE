@@ -1,17 +1,26 @@
 <div class="container border">
-    <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
-          <div>
-            <label for="customer_name">Company Name</label>
-            <input id="customer_name" type="text" formControlName="customer_name">
-          </div>
-        
-          <div>
-            <label for="customer_address">Company Address</label>
-            <input id="address" type="text" formControlName="customer_address">
-          </div>
 
-          <button class="button" type="submit">Enter</button>
-    </form>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="inputGroup-sizing-default">Company Name</span>
+    </div>
+    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" [(ngModel)]="companyName">
+  </div>
+
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="inputGroup-sizing-default">Company Address</span>
+    </div>
+    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" [(ngModel)]="companyAddress">
+  </div>
+
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="inputGroup-sizing-default">File Output Path</span>
+    </div>
+    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Enter the full filepath of where the document will be saved here..." [(ngModel)]="fileOutputPath">
+  </div>
+
 </div>
 
 <app-checkboxes></app-checkboxes>

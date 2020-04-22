@@ -23,9 +23,12 @@ export class FieldsComponent implements OnInit {
   companyInfo: CompanyInfo = new CompanyInfo();
   documentSections: SectionEditModel = new SectionEditModel();
 
-  customerForm: FormGroup;
+  fileOutputPath: string;
+  companyName: string;
+  companyAddress: string;
+
+
   @ViewChild(CheckboxesComponent, { static: false }) sections;
-//  @ViewChild(JobsComponent, { static: false }) jobs;
 
 
   constructor(private http: HttpClient) {
@@ -33,15 +36,13 @@ export class FieldsComponent implements OnInit {
   
   
   ngOnInit() {
-    this.customerForm = new FormGroup({
-      customer_name: new FormControl(),
-      customer_address: new FormControl(),
-    });
+
   }
 
-  onSubmit() : void {
-    console.log(this.customerForm.value.customer_name) //access values by...value.customer_name
-  }
+  //debug func
+  // onSubmit() : void {
+  //   console.log(this.fileOutputPath)
+  // }
 
   generateDocument() : void {
 
@@ -53,8 +54,8 @@ export class FieldsComponent implements OnInit {
     });
 
     //Company Info API call
-    this.companyInfo.Address = this.customerForm.value.customer_address;
-    this.companyInfo.Name = this.customerForm.value.customer_name;
+    this.companyInfo.Address = this.companyAddress;
+    this.companyInfo.Name = this.companyName;
     this.http.post(this.baseUrl + "Invoice/AddNameAddress", this.companyInfo).subscribe(function (data) {
       this.data = data;
     }, function (error) {
@@ -72,6 +73,13 @@ export class FieldsComponent implements OnInit {
       this.data = error;
     });
 
+    //File Output Path API call
+    var testVar = {path: this.fileOutputPath}
+    this.http.post(this.baseUrl + "Invoice/AddFileOutputPath", testVar).subscribe(function (data) {
+      this.data = data;
+    }, function (error) {
+      this.data = error;
+    });
 
   }
     

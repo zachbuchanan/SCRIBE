@@ -1,10 +1,11 @@
 ﻿<Properties StartupConfiguration="{44EBDDE1-3F2C-4AE8-80C5-4FD3D3A42173}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Core/Model/Section.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Core/Model/FilePath.cs">
     <Files>
-      <File FileName="API/Controllers/InvoiceController.cs" Line="38" Column="45" />
-      <File FileName="API/Generator/Generator.cs" Line="86" Column="16" />
-      <File FileName="Core/Model/SectionEditModel.cs" Line="1" Column="1" />
-      <File FileName="Core/Model/Section.cs" Line="1" Column="1" />
+      <File FileName="API/Controllers/InvoiceController.cs" Line="54" Column="1" />
+      <File FileName="API/Generator/Generator.cs" Line="118" Column="37" />
+      <File FileName="Core/Model/SectionEditModel.cs" />
+      <File FileName="Core/Model/Section.cs" />
+      <File FileName="Core/Model/FilePath.cs" Line="6" Column="9" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -16,7 +17,7 @@
             </Node>
             <Node name="Core" expanded="True">
               <Node name="Model" expanded="True">
-                <Node name="Section.cs" selected="True" />
+                <Node name="FilePath.cs" selected="True" />
               </Node>
             </Node>
           </Node>
