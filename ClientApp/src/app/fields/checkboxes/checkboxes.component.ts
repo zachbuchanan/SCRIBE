@@ -21,7 +21,7 @@ export class CheckboxesComponent implements OnInit {
 
 
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     this.checkList = [
       {id:1,value:'Section1',isSelected:false},
       {id:2,value:'Section2',isSelected:false},
@@ -31,47 +31,23 @@ export class CheckboxesComponent implements OnInit {
       {id:6,value:'Section6',isSelected:false},
       {id:7,value:'Section7',isSelected:false},
     ]
-
+      this.masterSelect = false;
+    
     this.fileNames$ = this.http.get<any>(this.baseUrl + "Invoice/GetFileNames").subscribe(function (data) {
-
       this.testdata = data;
-      // for (let i = 0; i < this.testdata.length; i++) {
-      //   //console.log(this.testdata[i])
-      //   this.checkList[i].value = this.testdata[i];
-        
-      // }
-      
+      for (let i = 0; i < this.testdata.length; i++) {
+        this.checkList[i].value = this.testdata[i];
+      }
     }, function (error) {
       this.testdata = error;
     });
 
-
     
-    this.masterSelect = false;
-    // this.checkList = [
-    //   {id:1,value:'Section1',isSelected:false},
-    //   {id:2,value:'Section2',isSelected:false},
-    //   {id:3,value:'Section3',isSelected:false},
-    //   {id:4,value:'Section4',isSelected:false},
-    //   {id:5,value:'Section5',isSelected:false},
-    //   {id:6,value:'Section6',isSelected:false},
-    //   {id:7,value:'Section7',isSelected:false},
-    // ]
+
   }
 
   ngOnInit(): void {
-    // this.fileNames$ = this.http.get<any>(this.baseUrl + "Invoice/GetFileNames").subscribe(function (data) {
 
-    //   this.testdata = data;
-      
-    // }, function (error) {
-    //   this.testdata = error;
-    // });
-    
-    // console.log("here");
-    // console.log(this.testdata);
-    
-    
   }
 
   checkUncheckAll() : void{
@@ -81,6 +57,7 @@ export class CheckboxesComponent implements OnInit {
   }
 
   test(){
+    console.log("test method");
     for(var i = 0; i < this.checkList.length; ++i){
       console.log(this.checkList[i].value, this.checkList[i].isSelected)
     }
