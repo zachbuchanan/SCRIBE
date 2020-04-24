@@ -14,8 +14,8 @@ namespace API.Generator
 {
     public class Generator
     {
-
-        public static void UpdateFiles(string PATH)
+        
+        public static List<string> UpdateFiles(string PATH)
         {
             char sep = Path.DirectorySeparatorChar;
             // be sure filedata directory exists
@@ -29,6 +29,9 @@ namespace API.Generator
 
 
             // scan data folder, and file that no longer exists or is outdated gets removed
+
+            List<string> result =
+                new List<string>();
 
             foreach (string foldername in files_data)
             {
@@ -81,9 +84,18 @@ namespace API.Generator
 
             ColorWrite(ConsoleColor.Green, "File updating completed.\n");
 
+            foreach (string foldername in files_data)
+            {
+                string file = Path.GetFileNameWithoutExtension(foldername);
+                string fileName = foldername.Split(sep).Last(); // filename without full path
+                result.Add(fileName);
+            }
+
+            return result;
         }
 
-        public static void Stitch(List<string> filenames, string outputname)
+
+        public static void Stitch(List<string> filenames, string outputname, string outputpath, List<KeyValuePair<string, string>> fieldInfo)
         {
 
             if (filenames.Count() == 0) //end immediately if filenames[0] doesn't exist.
@@ -138,14 +150,97 @@ namespace API.Generator
                 }
             }
 
+            Fields("./stitched", fieldInfo);
+
             //zip it up as a docx
 
             if (File.Exists("./" + outputname + ".docx"))
                 File.Delete("./" + outputname + ".docx");
-            ZipFile.CreateFromDirectory("./stitched", "./" + outputname + ".docx");
+            ZipFile.CreateFromDirectory("./stitched", outputpath + outputname + ".docx");
+            //ZipFile.CreateFromDirectory("./stitched", "./" + outputname + ".docx");
 
             ColorWrite(ConsoleColor.Green, "File stitching completed.\n");
 
+        }
+
+        static void Fields(string path, List<KeyValuePair<string, string>> fieldInfo)
+        {
+            string escapeSequence = "$$$";
+            using (FileStream fs = File.OpenRead(path + "/word/document.xml"))
+            {
+                string word = "";
+                XElement body = XElement.Load(fs);
+
+                bool escaped = false;
+                int escItr = 0;
+
+                foreach (XElement n in body.Descendants())
+                {
+                    int marker = 0;
+                    if (n.Name.LocalName == "t")
+                    {
+                        for (int i = 0; i < n.Value.Length; ++i)
+                        {
+                            if (escaped)
+                            {
+                                word += n.Value[i];
+                                if (n.Value[i] == escapeSequence[escItr])
+                                {
+                                    ++escItr;
+                                    if (escItr == escapeSequence.Length)
+                                    {
+                                        word = word.Substring(0, word.Length - escapeSequence.Length);
+                                        escItr = 0;
+                                        escaped = false;
+                                        //set marker to i to the replacement string
+                                        string replacement = "INVALID FIELD";
+                                        foreach (var s in fieldInfo)
+                                        {
+                                            if (s.Key == word)
+                                                replacement = s.Value;
+                                        }
+                                        string newValue = n.Value.Substring(0, marker) + replacement;
+                                        if (n.Value.Length > i)
+                                            newValue += n.Value.Substring(i + 1, n.Value.Length - (i + 1));
+                                        n.SetValue(newValue);
+                                        i = 0; //start this node over in case
+                                        word = "";
+                                    }
+                                }
+                                else
+                                {
+                                    escItr = 0;
+                                }
+
+                            }
+                            else
+                            {
+                                if (n.Value[i] == escapeSequence[escItr])
+                                {
+                                    if (escItr == 0) marker = i;
+                                    ++escItr;
+                                    if (escItr == escapeSequence.Length)
+                                    {
+                                        escItr = 0;
+                                        escaped = true;
+                                    }
+                                }
+                                else
+                                {
+                                    escItr = 0;
+                                    marker = 0;
+                                }
+                            }
+
+                        }
+                        //If we made it through the node still escaped, erase marker to the end of the node.
+                        if (escaped)
+                            n.SetValue(n.Value.Substring(0, marker)); //possibly off by 1
+                    }
+                }
+                fs.Close();
+                body.Save(path + "/word/document.xml");
+            }
         }
 
         static void MergeDocumentXML(string path1, string path2)

@@ -1,6 +1,20 @@
 <div class="container border">
     <p class="text-center">Document Sections</p>
-    <input type="checkbox" [(ngModel)]="masterSelect" (change)="checkUncheckAll()"><b> Check/Uncheck All</b><br><br>
+    <div class="row">
+        <div class="col-md-auto">
+            <input type="checkbox" [(ngModel)]="masterSelect" (change)="checkUncheckAll()"><b> Check/Uncheck All</b><br><br>
+        </div>
+        <div class="col">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-default">File Input Path</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Enter the full filepath of where the stored files are..." [(ngModel)]="fileInputPath" (change)="FilePathInput()">
+              </div>
+        </div>
+    </div>
+    
+
     <ul class="list-group">
         <li class="list-group-item" *ngFor="let item of checkList">
             <input type="checkbox" [(ngModel)]="item.isSelected" name="list_name" value="{{item.id}}"/>

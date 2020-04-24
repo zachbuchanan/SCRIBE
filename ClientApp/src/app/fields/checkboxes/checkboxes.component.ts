@@ -13,44 +13,35 @@ import { ThrowStmt } from '@angular/compiler';
 })
 export class CheckboxesComponent implements OnInit {
   baseUrl: string = environment.apiRootUrl;
-  masterSelect: Boolean;
-  checkList: any;
+  masterSelect: boolean;
   fileNames$: any;
   testdata: string[];
-  
-
+  checkList: any = [];
+  fileInputPath: string;
 
 
   constructor(private http: HttpClient) {
-    this.checkList = [
-      {id:1,value:'Section1',isSelected:false},
-      {id:2,value:'Section2',isSelected:false},
-      {id:3,value:'Section3',isSelected:false},
-      {id:4,value:'Section4',isSelected:false},
-      {id:5,value:'Section5',isSelected:false},
-      {id:6,value:'Section6',isSelected:false},
-      {id:7,value:'Section7',isSelected:false},
-    ]
+
       this.masterSelect = false;
     
-    this.fileNames$ = this.http.get<any>(this.baseUrl + "Invoice/GetFileNames").subscribe(function (data) {
-      this.testdata = data;
-      for (let i = 0; i < this.testdata.length; i++) {
-        this.checkList[i].value = this.testdata[i];
-      }
-    }, function (error) {
-      this.testdata = error;
-    });
-
-    
-
   }
 
   ngOnInit(): void {
-
+    //this.GetFileNames();
   }
 
-  checkUncheckAll() : void{
+  // GetFileNames() : void {
+  //   let that = this;
+
+  //   that.fileNames$ = that.http.get<any>(that.baseUrl + "Invoice/GetFileNames").subscribe(function (data) {
+  //     that.checkList = data;
+  //   }, function (error) {
+  //     that.testdata = error;
+  //   });
+
+  // }
+
+  checkUncheckAll() : void {
     for(var i = 0; i < this.checkList.length; ++i){
       this.checkList[i].isSelected = this.masterSelect;
     }
@@ -62,4 +53,18 @@ export class CheckboxesComponent implements OnInit {
       console.log(this.checkList[i].value, this.checkList[i].isSelected)
     }
   }
+
+  FilePathInput() : void {
+    //C:\Users\Zach\Desktop\SCRIBE\testfiles
+    let that = this;
+    
+    var path = {path: that.fileInputPath}
+    that.http.post(that.baseUrl + "Invoice/AddFileInputPath", path).subscribe(function (data) {
+      that.checkList = data;
+    }, function (error) {
+      that.checkList = error;
+    });
+    
+  }
+
 }

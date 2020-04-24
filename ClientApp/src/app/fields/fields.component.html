@@ -14,6 +14,13 @@
     <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" [(ngModel)]="companyAddress">
   </div>
 
+  <app-checkboxes></app-checkboxes>
+  <app-jobs [jobList]="jobs"></app-jobs>
+
+</div>
+<br>
+
+<div class ="container border">
   <div class="input-group mb-3">
     <div class="input-group-prepend">
       <span class="input-group-text" id="inputGroup-sizing-default">File Output Path</span>
@@ -21,10 +28,5 @@
     <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Enter the full filepath of where the document will be saved here..." [(ngModel)]="fileOutputPath">
   </div>
 
+  <button class="btn btn-secondary btn-lg btn-block" (click)="generateDocument()">Generate Document</button>
 </div>
-
-<app-checkboxes></app-checkboxes>
-<app-jobs [jobList]="jobs"></app-jobs>
-
-<button class="btn btn-secondary btn-lg btn-block" (click)="generateDocument()">Generate Document</button>
-

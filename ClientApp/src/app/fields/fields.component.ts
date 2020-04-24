@@ -46,6 +46,14 @@ export class FieldsComponent implements OnInit {
 
   generateDocument() : void {
 
+    //File Output Path API call
+    var testVar = {path: this.fileOutputPath}
+    this.http.post(this.baseUrl + "Invoice/AddFileOutputPath", testVar).subscribe(function (data) {
+      this.data = data;
+    }, function (error) {
+      this.data = error;
+    });
+
     //Jobs API call
     this.http.post(this.baseUrl + "Invoice/CreateJobs", this.jobs).subscribe(function (data) {
       this.data = data;
@@ -73,13 +81,6 @@ export class FieldsComponent implements OnInit {
       this.data = error;
     });
 
-    //File Output Path API call
-    var testVar = {path: this.fileOutputPath}
-    this.http.post(this.baseUrl + "Invoice/AddFileOutputPath", testVar).subscribe(function (data) {
-      this.data = data;
-    }, function (error) {
-      this.data = error;
-    });
 
   }
     
