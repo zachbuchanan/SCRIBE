@@ -1,4 +1,4 @@
-<div class="container border">
+<!-- <div class="container border">
     <p class="text-center">Jobs</p>
     <div class="row">
         <div class="col">
@@ -11,18 +11,7 @@
             <p class="text-center">Hours</p>
         </div>
     </div>
-<!--     <form class="form-inline" [formGroup]="jobsForm">
-        <div class="row" formArrayName="jobs">
-            <div *ngFor="let item of allJobs.controls; let pointIndex=index" [formGroupName]="pointIndex">
-                <input id="title" type="text" formControlName="title">
-                <input id="hours" type="text" formControlName="hours">
-                <input id="rate" type="text" formControlName="rate">
-                <button type="button" (click)="deleteJob(pointIndex)">Delete Job</button>
-            </div>
-            <button type="button" (click)="addJob()">Add Job</button>
-        </div> 
 
-  </form>-->
   <div class="row">
     <div *ngFor="let item of jobList.Jobs; let i=index">
       <input id="title-{{i}}" type="text" #title="ngModel" name="title-{{i}}" [(ngModel)]="item.Title">
@@ -33,9 +22,9 @@
 
     <button type="button" (click)="addNewJob()">Add Job</button>
 </div>
-</div>
+</div> -->
 
-<!--{{ this.jobsForm.value | json }}-->
+
 
 
 
